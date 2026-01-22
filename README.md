@@ -10,7 +10,6 @@ int main()
     char str3[50];
     char ch = 'a';
     int num = 25;
-
     /* strlen() */
     printf("Length of str1 = %d\n", strlen(str1));
 
