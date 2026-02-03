@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+void increment(int *x);
+
+int main()
+{
+    int a = 10;
+    increment(&a);
+    printf("Value after increment = %d\n", a);
+    return 0;
+}
+
+void increment(int *x)
+{
+    (*x)++;
+}
+
+
