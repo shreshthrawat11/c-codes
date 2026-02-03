@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+void convertTime(int seconds);
+
+int main()
+{
+    int sec;
+    printf("Enter total seconds: ");
+    scanf("%d", &sec);
+
+    convertTime(sec);
+    return 0;
+}
+
+void convertTime(int seconds)
+{
+    int hrs, min, sec;
+
+    hrs = seconds / 3600;
+    seconds = seconds % 3600;
+    min = seconds / 60;
+    sec = seconds % 60;
+
+    printf("Time = %d:%d:%d\n", hrs, min, sec);
+}
