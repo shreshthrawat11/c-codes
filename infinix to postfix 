@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <ctype.h>
+char stack[20];
+int top = -1;
+void push(char x)
+{
+    stack[++top] = x;
+}
+
+char pop()
+{
+    if (top == -1)
+        return '\0';
+
+    return stack[top--];
+}
+
+int priority(char x)
+{
+    if (x == '(')
+        return 0;
+
+    if (x == '+' || x == '-')
+        return 1;
+
+    if (x == '*' || x == '/')
+        return 2;
+
+    if (x == '^')
+        return 3;
+
+    return -1;
+}
+
+int main()
+{
+    char exp[20];
+    char *e;
+    char x;
+
+    printf("Enter the infix expression: ");
+    scanf("%19s", exp);
+
+    e = exp;
+
+    while (*e != '\0')
+    {
+        /* Operand directly output में जाएगा */
+        if (isalnum((unsigned char)*e))
+        {
+            printf("%c", *e);
+        }
+
+        /* Opening bracket stack में जाएगा */
+        else if (*e == '(')
+        {
+            push(*e);
+        }
+
+        /* Closing bracket मिलने पर '(' तक pop करें */
+        else if (*e == ')')
+        {
+            while (top != -1 && (x = pop()) != '(')
+            {
+                printf("%c", x);
+            }
+        }
+
+        /* Operator मिलने पर */
+        else
+        {
+            while (top != -1 &&
+                   stack[top] != '(' &&
+                   priority(stack[top]) >= priority(*e))
+            {
+                printf("%c", pop());
+            }
+
+            push(*e);
+        }
+
+        e++;
+    }
+
+    /* Stack में बचे सभी operators output करें */
+    while (top != -1)
+    {
+        printf("%c", pop());
+    }
+
+    printf("\n");
+
+    return 0;
+}
